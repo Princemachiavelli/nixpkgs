@@ -21,6 +21,7 @@ let
   generic = { version, sha256 }: let
     ver = version;
     atLeast30 = lib.versionAtLeast ver.majMin "3.0";
+    atLeast31 = lib.versionAtLeast ver.majMin "3.1";
     self = lib.makeOverridable (
       { stdenv, buildPackages, lib
       , fetchurl, fetchpatch, fetchFromSavannah, fetchFromGitHub
@@ -97,6 +98,8 @@ let
           }).${ver.majMinTiny}
           ++ op (lib.versionOlder ver.majMin "3.1") ./do-not-regenerate-revision.h.patch
           ++ op (atLeast30 && useBaseRuby) ./do-not-update-gems-baseruby.patch
+          # Does it matter what useBaseRuby is?
+          ++ op (atLeast31) ./0001-try-reverting-commit-that-breaks-nixos-for-3.1.3.patch
           ++ ops (!atLeast30 && rubygemsSupport) [
             # We upgrade rubygems to a version that isn't compatible with the
             # ruby 2.7 installer. Backport the upstream fix.
