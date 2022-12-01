@@ -172,10 +172,10 @@ in
         sound-theme-freedesktop
         nixos-artwork.wallpapers.simple-dark-gray
         mint-artwork
+        mint-cursor-themes
         mint-themes
         mint-x-icons
         mint-y-icons
-        vanilla-dmz
       ] config.environment.cinnamon.excludePackages);
 
       xdg.mime.enable = true;

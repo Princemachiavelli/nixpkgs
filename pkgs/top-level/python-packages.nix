@@ -2834,6 +2834,8 @@ self: super: with self; {
 
   easygui = callPackage ../development/python-modules/easygui { };
 
+  easyocr = callPackage ../development/python-modules/easyocr { };
+
   EasyProcess = callPackage ../development/python-modules/easyprocess { };
 
   easysnmp = callPackage ../development/python-modules/easysnmp { };
@@ -5408,7 +5410,7 @@ self: super: with self; {
 
   logilab_astng = callPackage ../development/python-modules/logilab_astng { };
 
-  logilab_common = callPackage ../development/python-modules/logilab/common.nix { };
+  logilab-common = callPackage ../development/python-modules/logilab/common.nix { };
 
   logilab-constraint = callPackage ../development/python-modules/logilab/constraint.nix { };
 
@@ -6541,6 +6543,8 @@ self: super: with self; {
   optuna = callPackage ../development/python-modules/optuna { };
 
   opuslib = callPackage ../development/python-modules/opuslib { };
+
+  opytimark = callPackage ../development/python-modules/opytimark { };
 
   oralb-ble = callPackage ../development/python-modules/oralb-ble { };
 
@@ -10251,6 +10255,8 @@ self: super: with self; {
 
   sievelib = callPackage ../development/python-modules/sievelib { };
 
+  signalslot = callPackage ../development/python-modules/signalslot { };
+
   signedjson = callPackage ../development/python-modules/signedjson { };
 
   sigrok = callPackage ../development/python-modules/sigrok { };
@@ -11887,6 +11893,8 @@ self: super: with self; {
 
   wcwidth = callPackage ../development/python-modules/wcwidth { };
 
+  weakrefmethod = callPackage ../development/python-modules/weakrefmethod { };
+
   weasyprint = callPackage ../development/python-modules/weasyprint { };
 
   web3 = callPackage ../development/python-modules/web3 { };
@@ -12064,6 +12072,7 @@ self: super: with self; {
   };
 
   xapp = callPackage ../development/python-modules/xapp {
+    inherit (pkgs.buildPackages) meson;
     inherit (pkgs) gtk3 gobject-introspection polkit;
     inherit (pkgs.cinnamon) xapp;
   };

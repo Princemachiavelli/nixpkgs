@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.clamav.net/downloads/production/${pname}-${version}.tar.gz";
-    sha256 = "sha256-vaObuFaQLm3WB36jE6Pri+zNSH4AgqlZF4d/Kymc2G4=";
+    hash = "sha256-vaObuFaQLm3WB36jE6Pri+zNSH4AgqlZF4d/Kymc2G4=";
   };
 
   patches = [
