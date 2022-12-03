@@ -15,7 +15,7 @@ jobs:
           base: unstable-good
           head: nixos-unstable
           retries: 0
-          retryAfter: 2
+          retry_after: 2
   nixos-unstable:
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +25,7 @@ jobs:
           base: nixos-unstable
           head: nixos-unstable
           retries: 0
-          retryAfter: 2
+          retry_after: 2
   jhoffer-22_11:
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +35,7 @@ jobs:
           base: jhoffer-22.11
           head: nixos-22.11
           retries: 0
-          retryAfter: 2
+          retry_after: 2
   master:
     runs-on: ubuntu-latest
     steps:
@@ -45,4 +45,4 @@ jobs:
           base: master
           head: master
           retries: 0
-          retryAfter: 2
+          retry_after: 2
