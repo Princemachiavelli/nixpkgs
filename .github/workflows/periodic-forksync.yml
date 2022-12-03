@@ -33,3 +33,12 @@ jobs:
           base: jhoffer-22.11
           head: nixos-22.11
           retries: 0
+  master:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tgymnich/fork-sync@v1.6.3
+        with:
+          owner: NixOS
+          base: master
+          head: master
+          retries: 0
