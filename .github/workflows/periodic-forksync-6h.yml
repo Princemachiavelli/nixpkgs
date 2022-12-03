@@ -9,7 +9,7 @@ jobs:
   unstable-good:
     runs-on: ubuntu-latest
     steps:
-      - uses: tgymnich/fork-sync@master
+      - uses: tgymnich/fork-sync@v1.6.3
         with:
           owner: NixOS
           base: unstable-good
@@ -17,7 +17,7 @@ jobs:
   nixos-unstable:
     runs-on: ubuntu-latest
     steps:
-      - uses: tgymnich/fork-sync@master
+      - uses: tgymnich/fork-sync@v1.6.3
         with:
           owner: NixOS
           base: nixos-unstable
@@ -25,7 +25,7 @@ jobs:
   jhoffer-22_11:
     runs-on: ubuntu-latest
     steps:
-      - uses: tgymnich/fork-sync@master
+      - uses: tgymnich/fork-sync@v1.6.3
         with:
           owner: NixOS
           base: jhoffer-22.11
