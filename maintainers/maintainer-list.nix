@@ -5170,6 +5170,12 @@
       fingerprint = "C006 B8A0 0618 F3B6 E0E4  2ECD 5D47 2848 30FA A4FA";
     }];
   };
+  gotcha = {
+    email = "gotcha@bubblenet.be";
+    github = "gotcha";
+    githubId = 105204;
+    name = "Godefroid Chapelle";
+  };
   govanify = {
     name = "Gauvain 'GovanifY' Roussel-Tarbouriech";
     email = "gauvain@govanify.com";
@@ -5760,6 +5766,15 @@
     github = "hugolgst";
     githubId = 15371828;
     name = "Hugo Lageneste";
+  };
+  huyngo = {
+    email = "huyngo@disroot.org";
+    github = "Huy-Ngo";
+    name = "Ngô Ngọc Đức Huy";
+    githubId = 19296926;
+    keys = [{
+      fingerprint = "DF12 23B1 A9FD C5BE 3DA5  B6F7 904A F1C7 CDF6 95C3";
+    }];
   };
   hypersw = {
     email = "baltic@hypersw.net";
@@ -6541,6 +6556,12 @@
     github = "jglukasik";
     githubId = 6445082;
     name = "Joseph Lukasik";
+  };
+  jhh = {
+    email = "jeff@j3ff.io";
+    github = "jhh";
+    githubId = 14412;
+    name = "Jeff Hutchison";
   };
   jhhuh = {
     email = "jhhuh.note@gmail.com";
@@ -14343,6 +14364,7 @@
   };
   urandom = {
     email = "colin@urandom.co.uk";
+    matrix = "@urandom0:matrix.org";
     github = "urandom2";
     githubId = 2526260;
     keys = [{
@@ -15802,7 +15824,7 @@
   };
   portothree = {
     name = "Gustavo Porto";
-    email = "gustavoporto@ya.ru";
+    email = "gus@p8s.co";
     github = "portothree";
     githubId = 3718120;
   };
