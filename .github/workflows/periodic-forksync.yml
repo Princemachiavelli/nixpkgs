@@ -2,7 +2,7 @@ name: Sync Fork
 
 on:
   schedule:
-    - cron:  '0 */6 * * *'
+    - cron:  '0 */1 * * *'
   workflow_dispatch: # on button click
 
 jobs:
@@ -14,6 +14,7 @@ jobs:
           owner: NixOS
           base: unstable-good
           head: nixos-unstable
+          retries: 0
   nixos-unstable:
     runs-on: ubuntu-latest
     steps:
@@ -22,6 +23,7 @@ jobs:
           owner: NixOS
           base: nixos-unstable
           head: nixos-unstable
+          retries: 0
   jhoffer-22_11:
     runs-on: ubuntu-latest
     steps:
@@ -30,3 +32,4 @@ jobs:
           owner: NixOS
           base: jhoffer-22.11
           head: nixos-22.11
+          retries: 0
