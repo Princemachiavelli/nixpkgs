@@ -22,7 +22,7 @@ jobs:
           owner: NixOS
           base: nixos-unstable
           head: nixos-unstable
-  jhoffer-22.11:
+  jhoffer-22_11:
     runs-on: ubuntu-latest
     steps:
       - uses: tgymnich/fork-sync@master
