@@ -7883,6 +7883,8 @@ with pkgs;
 
   hashcat-utils = callPackage ../tools/security/hashcat-utils { };
 
+  hashrat = callPackage ../tools/security/hashrat { };
+
   hash_extender = callPackage ../tools/security/hash_extender {
     openssl = openssl_1_1;
   };
@@ -13374,6 +13376,8 @@ with pkgs;
 
   zsh-clipboard = callPackage ../shells/zsh/zsh-clipboard { };
 
+  zsh-edit = callPackage ../shells/zsh/zsh-edit { };
+
   zsh-git-prompt = callPackage ../shells/zsh/zsh-git-prompt { };
 
   zsh-history = callPackage ../shells/zsh/zsh-history { };
@@ -16372,6 +16376,8 @@ with pkgs;
   umr = callPackage ../development/misc/umr {
     llvmPackages = llvmPackages_latest;
   };
+
+  refurb = callPackage ../development/tools/refurb { };
 
   srandrd = callPackage ../tools/X11/srandrd { };
 
@@ -36120,6 +36126,8 @@ with pkgs;
   diylc = callPackage ../applications/science/electronics/diylc { };
 
   flatcam = callPackage ../applications/science/electronics/flatcam { };
+
+  flopoco = callPackage ../applications/science/electronics/flopoco { };
 
   fparser = callPackage ../applications/science/electronics/fparser { };
 
