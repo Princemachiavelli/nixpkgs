@@ -80,7 +80,7 @@ in {
     (mkRemovedOptionModule [ "services" "matrix-synapse" "user_creation_max_duration" ] "It is no longer supported by synapse." )
     (mkRemovedOptionModule [ "services" "matrix-synapse" "verbose" ] "Use a log config instead." )
 
-    # options that were moved into rfc42 style settigns
+    # options that were moved into rfc42 style settings
     (mkRemovedOptionModule [ "services" "matrix-synapse" "app_service_config_files" ] "Use settings.app_service_config_files instead" )
     (mkRemovedOptionModule [ "services" "matrix-synapse" "database_args" ] "Use settings.database.args instead" )
     (mkRemovedOptionModule [ "services" "matrix-synapse" "database_name" ] "Use settings.database.args.database instead" )
@@ -286,6 +286,7 @@ in {
             log_config = mkOption {
               type = types.path;
               default = ./synapse-log_config.yaml;
+              defaultText = lib.literalExpression "nixos/modules/services/matrix/synapse-log_config.yaml";
               description = lib.mdDoc ''
                 The file that holds the logging configuration.
               '';

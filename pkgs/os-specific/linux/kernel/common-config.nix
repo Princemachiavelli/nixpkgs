@@ -390,7 +390,7 @@ let
 
       TMPFS           = yes;
       TMPFS_POSIX_ACL = yes;
-      FS_ENCRYPTION   = if (versionAtLeast version "5.1") then yes else whenAtLeast "4.9" (option module);
+      FS_ENCRYPTION   = if (versionAtLeast version "5.1") then yes else option module;
 
       EXT2_FS_XATTR     = yes;
       EXT2_FS_POSIX_ACL = yes;
@@ -523,6 +523,15 @@ let
       X86_SGX     = whenAtLeast "5.11" yes;
       # Allow KVM guests to load SGX enclaves
       X86_SGX_KVM = whenAtLeast "5.13" yes;
+
+      # AMD Cryptographic Coprocessor (CCP)
+      CRYPTO_DEV_CCP  = yes;
+      # AMD SME
+      AMD_MEM_ENCRYPT = yes;
+      # AMD SEV and AMD SEV-SE
+      KVM_AMD_SEV     = whenAtLeast "4.16" yes;
+      # AMD SEV-SNP
+      SEV_GUEST       = whenAtLeast "5.19" module;
     };
 
     microcode = {
@@ -628,7 +637,6 @@ let
     media = {
       MEDIA_DIGITAL_TV_SUPPORT = yes;
       MEDIA_CAMERA_SUPPORT     = yes;
-      MEDIA_RC_SUPPORT         = whenOlder "4.14" yes;
       MEDIA_CONTROLLER         = yes;
       MEDIA_PCI_SUPPORT        = yes;
       MEDIA_USB_SUPPORT        = yes;
@@ -708,7 +716,7 @@ let
       LOCK_TORTURE_TEST        = option no;
       MTD_TESTS                = option no;
       NOTIFIER_ERROR_INJECTION = option no;
-      RCU_PERF_TEST            = whenBetween "4.13" "5.9" no;
+      RCU_PERF_TEST            = whenOlder "5.9" no;
       RCU_SCALE_TEST           = whenAtLeast "5.10" no;
       RCU_TORTURE_TEST         = option no;
       TEST_ASYNC_DRIVER_PROBE  = option no;

@@ -605,6 +605,21 @@ let
         };
       };
 
+      bmewburn.vscode-intelephense-client = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vscode-intelephense-client";
+          publisher = "bmewburn";
+          version = "1.8.2";
+          sha256 = "OvWdDQfhprQNve017pNSksMuCK3Ccaar5Ko5Oegdiuo=";
+        };
+        meta = with lib; {
+          description = "PHP code intelligence for Visual Studio Code";
+          license = licenses.mit;
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client";
+          maintainers = with maintainers; [ drupol ];
+        };
+      };
+
       catppuccin.catppuccin-vsc = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "catppuccin-vsc";
@@ -891,8 +906,8 @@ let
         mktplcRef = {
           name = "gitlens";
           publisher = "eamodio";
-          version = "2022.11.2204";
-          sha256 = "0npr9fymfjnrq7xvfj6fdc04lysz28qncf9r8syv0w9873f3695h";
+          version = "2022.12.604";
+          sha256 = "sha256-yfqGITviASp5ZDEJA+zyVz1LpPWV4FM/4fU4eq52Xng=";
         };
         meta = with lib; {
           changelog = "https://marketplace.visualstudio.com/items/eamodio.gitlens/changelog";
@@ -1468,8 +1483,8 @@ let
         mktplcRef = {
           name = "latex-workshop";
           publisher = "James-Yu";
-          version = "9.1.0";
-          sha256 = "sha256-a/v8/5ztB9DXqYpGWMYSRIwZIj1D+iebG35fO0yDjQQ=";
+          version = "9.1.1";
+          sha256 = "sha256-Xt/z5r9R090Z9nP1v7k+jYm9EOcjy0GfYiYpc7jNid4=";
         };
         meta = with lib; {
           changelog = "https://marketplace.visualstudio.com/items/James-Yu.latex-workshop/changelog";
@@ -1567,8 +1582,8 @@ let
         mktplcRef = {
           name = "magit";
           publisher = "kahole";
-          version = "0.6.18";
-          sha256 = "0sqzz5bbqqg60aypvwxcqnxrr72gmwfj9sv0amgkyaf60zg5sf7w";
+          version = "0.6.36";
+          sha256 = "sha256-4712BPibXJkkq0XEO9n0ZrdXAcID7IAabu/FOTiTeTo=";
         };
         meta = {
           license = lib.licenses.mit;
@@ -2544,8 +2559,8 @@ let
         mktplcRef = {
           name = "code-spell-checker";
           publisher = "streetsidesoftware";
-          version = "2.11.1";
-          sha256 = "sha256-o6Se+xpqwrdJIMnVE/HaDGIoDqZkeX0nTGHa8GjaqVQ=";
+          version = "2.12.0";
+          sha256 = "sha256-Dhd0QVWdCCvdGKuu8OB4KrBS0XUHWLzRSyreAf7sGLU=";
         };
         meta = with lib; {
           changelog = "https://marketplace.visualstudio.com/items/streetsidesoftware.code-spell-checker/changelog";

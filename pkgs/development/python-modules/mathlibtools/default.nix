@@ -3,7 +3,7 @@
 , buildPythonPackage
 , click
 , fetchPypi
-, GitPython
+, gitpython
 , networkx
 , pydot
 , PyGithub
@@ -15,20 +15,20 @@
 
 buildPythonPackage rec {
   pname = "mathlibtools";
-  version = "1.3.1";
+  version = "1.3.2";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-HwtmrDGInCI5Hl+qhl+7hOBJ3Ux0g8IjoAVa4iAccl8=";
+    hash = "sha256-mkn0y3NV/acnkqVzi8xd+Sex4QLvxxmt++FtsZmgrGs=";
   };
 
   propagatedBuildInputs = [
     atomicwrites
     click
-    GitPython
+    gitpython
     networkx
     pydot
     PyGithub

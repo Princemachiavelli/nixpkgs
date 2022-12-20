@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchurl
+, fetchpatch
 , which
 , python3
 , gfortran
@@ -11,19 +12,13 @@
 , libwhich
 , libxml2
 , libunwind
-, libgit2
 , curl
-, nghttp2
-, mbedtls
-, libssh2
 , gmp
-, mpfr
 , suitesparse
 , utf8proc
 , zlib
 , p7zip
 , ncurses
-, pcre2
 }:
 
 stdenv.mkDerivation rec {
@@ -67,17 +62,11 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libxml2
     libunwind
-    libgit2
     curl
-    nghttp2
-    mbedtls
-    libssh2
     gmp
-    mpfr
     utf8proc
     zlib
     p7zip
-    pcre2
   ];
 
   JULIA_RPATH = lib.makeLibraryPath (buildInputs ++ [ stdenv.cc.cc gfortran.cc ncurses ]);
@@ -96,29 +85,32 @@ stdenv.mkDerivation rec {
     "USE_SYSTEM_CSL=1"
     "USE_SYSTEM_LLVM=0" # a patched version is required
     "USE_SYSTEM_LIBUNWIND=1"
-    "USE_SYSTEM_PCRE=1"
+    "USE_SYSTEM_PCRE=0" # version checks
     "USE_SYSTEM_LIBM=0"
     "USE_SYSTEM_OPENLIBM=0"
     "USE_SYSTEM_DSFMT=0" # not available in nixpkgs
     "USE_SYSTEM_LIBBLASTRAMPOLINE=0" # not available in nixpkgs
     "USE_SYSTEM_BLAS=0" # test failure
     "USE_SYSTEM_LAPACK=0" # test failure
-    "USE_SYSTEM_GMP=1"
-    "USE_SYSTEM_MPFR=1"
+    "USE_SYSTEM_GMP=1" # version checks, but bundled version fails build
+    "USE_SYSTEM_MPFR=0" # version checks
     "USE_SYSTEM_LIBSUITESPARSE=0" # test failure
     "USE_SYSTEM_LIBUV=0" # a patched version is required
     "USE_SYSTEM_UTF8PROC=1"
-    "USE_SYSTEM_MBEDTLS=1"
-    "USE_SYSTEM_LIBSSH2=1"
-    "USE_SYSTEM_NGHTTP2=1"
+    "USE_SYSTEM_MBEDTLS=0" # version checks
+    "USE_SYSTEM_LIBSSH2=0" # version checks
+    "USE_SYSTEM_NGHTTP2=0" # version checks
     "USE_SYSTEM_CURL=1"
-    "USE_SYSTEM_LIBGIT2=1"
+    "USE_SYSTEM_LIBGIT2=0" # version checks
     "USE_SYSTEM_PATCHELF=1"
     "USE_SYSTEM_LIBWHICH=1"
-    "USE_SYSTEM_ZLIB=1"
+    "USE_SYSTEM_ZLIB=1" # version checks, but the system zlib is used anyway
     "USE_SYSTEM_P7ZIP=1"
-
-    "PCRE_INCL_PATH=${pcre2.dev}/include/pcre2.h"
+  ] ++ lib.optionals stdenv.isx86_64 [
+    # https://github.com/JuliaCI/julia-buildbot/blob/master/master/inventory.py
+    "JULIA_CPU_TARGET=generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1)"
+  ] ++ lib.optionals stdenv.isAarch64 [
+    "JULIA_CPU_TERGET=generic;cortex-a57;thunderx2t99;armv8.2-a,crypto,fullfp16,lse,rdm"
   ];
 
   doInstallCheck = true;
