@@ -1743,12 +1743,6 @@
     githubId = 442623;
     name = "Ben Pye";
   };
-  benwbooth = {
-    email = "benwbooth@gmail.com";
-    github = "benwbooth";
-    githubId = 75972;
-    name = "Ben Booth";
-  };
   berberman = {
     email = "berberman@yandex.com";
     matrix = "@berberman:mozilla.org";
@@ -3946,6 +3940,16 @@
     email = "edli.merkaj@identinet.io";
     github = "edlimerkaj";
     githubId = 71988351;
+  };
+  edrex = {
+    email = "ericdrex@gmail.com";
+    github = "edrex";
+    githubId = 14615;
+    keys = [{
+      fingerprint = "AC47 2CCC 9867 4644 A9CF  EB28 1C5C 1ED0 9F66 6824";
+    }];
+    matrix = "@edrex:matrix.org";
+    name = "Eric Drechsel";
   };
   ehllie = {
     email = "me@ehllie.xyz";
