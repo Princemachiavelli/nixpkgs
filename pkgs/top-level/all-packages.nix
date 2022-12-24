@@ -12115,6 +12115,8 @@ with pkgs;
 
   tarsnapper = callPackage ../tools/backup/tarsnapper { };
 
+  tarantool = callPackage ../servers/tarantool { };
+
   tarssh = callPackage ../servers/tarssh { };
 
   tartan = callPackage ../development/tools/analysis/tartan {};
@@ -17309,6 +17311,8 @@ with pkgs;
   goreman = callPackage ../tools/system/goreman { };
 
   fprettify = callPackage ../development/tools/fprettify { };
+
+  fortls = python3.pkgs.callPackage ../development/tools/fortls { };
 
   fortran-language-server = python3.pkgs.callPackage ../development/tools/fortran-language-server { };
 
@@ -26644,6 +26648,8 @@ with pkgs;
   };
   flat-remix-gtk = callPackage ../data/themes/flat-remix-gtk { };
   flat-remix-gnome = callPackage ../data/themes/flat-remix-gnome { };
+
+  fluent-gtk-theme = callPackage ../data/themes/fluent-gtk-theme { };
 
   fluent-icon-theme = callPackage ../data/icons/fluent-icon-theme { };
 
