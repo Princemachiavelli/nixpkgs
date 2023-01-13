@@ -219,6 +219,7 @@ broken-packages:
   - artifact
   - asap
   - ascii85-conduit
+  - ascii-caseless
   - ascii-flatten
   - ascii-string
   - ascii-vector-avc
@@ -473,6 +474,7 @@ broken-packages:
   - bricks-internal
   - brick-skylighting
   - brillig
+  - brittany
   - broadcast-chan-tests
   - broccoli
   - brok
@@ -558,6 +560,7 @@ broken-packages:
   - cabal-meta
   - cabal-mon
   - cabal-nirvana
+  - cabal-plan-bounds
   - cabal-progdeps
   - cabalQuery
   - CabalSearch
@@ -851,6 +854,7 @@ broken-packages:
   - Conscript
   - consistent
   - console-program
+  - constable
   - const-math-ghc-plugin
   - constrained
   - constrained-categories
@@ -1089,6 +1093,7 @@ broken-packages:
   - dense
   - dense-int-set
   - dependent-hashmap
+  - dep-t-dynamic
   - deptrack-core
   - dep-t-value
   - derangement
@@ -1441,6 +1446,7 @@ broken-packages:
   - fadno-braids
   - fadno-xml
   - failable-list
+  - FailT
   - failure-detector
   - fake
   - fake-type
@@ -1483,6 +1489,7 @@ broken-packages:
   - Feval
   - fez-conf
   - ffeed
+  - fft
   - ffunctor
   - fgl-extras-decompositions
   - fib
@@ -1779,7 +1786,6 @@ broken-packages:
   - GiST
   - git
   - git-all
-  - git-brunch
   - git-checklist
   - git-cuk
   - git-date
@@ -1861,9 +1867,9 @@ broken-packages:
   - graphics-drawingcombinators
   - graphics-formats-collada
   - graph-matchings
-  - graphmod
   - graphmod-plugin
   - graphql-api
+  - graphql-spice
   - graphql-utils
   - graphql-w-persistent
   - graph-rewriting
@@ -2216,7 +2222,6 @@ broken-packages:
   - heterogeneous-list-literals
   - hetris
   - heukarya
-  - hevm
   - HExcel
   - hexchat
   - hexif
@@ -2324,7 +2329,6 @@ broken-packages:
   - hls-brittany-plugin
   - hls-haddock-comments-plugin
   - hls-selection-range-plugin
-  - hls-splice-plugin
   - hls-stan-plugin
   - hls-tactics-plugin
   - hlwm
@@ -2570,6 +2574,7 @@ broken-packages:
   - http-conduit-downloader
   - http-directory
   - http-dispatch
+  - http-encodings
   - http-grammar
   - http-kinder
   - http-kit
@@ -2652,14 +2657,13 @@ broken-packages:
   - icepeak
   - icfpc2020-galaxy
   - IcoGrid
-  - iconv
+  - iconv-typed
   - ideas
   - ide-backend-common
   - idempotent
   - identifiers
   - idiii
   - idna2008
-  - idris
   - IDynamic
   - ieee-utils
   - iexcloud
@@ -2774,6 +2778,7 @@ broken-packages:
   - irc-fun-types
   - ireal
   - iri
+  - iridium
   - iris
   - iron-mq
   - irt
@@ -3059,6 +3064,7 @@ broken-packages:
   - libltdl
   - liboath-hs
   - liboleg
+  - libpafe
   - libpq
   - librandomorg
   - libsystemd-daemon
@@ -3355,6 +3361,7 @@ broken-packages:
   - mmtf
   - mmtl
   - Mobile-Legends-Hack-Cheats
+  - mockazo
   - mock-httpd
   - modbus-tcp
   - model
@@ -3472,7 +3479,6 @@ broken-packages:
   - multiplate-simplified
   - multipool
   - multirec
-  - multistate
   - Munkres-simple
   - muon
   - murmur
@@ -3664,6 +3670,7 @@ broken-packages:
   - OddWord
   - oden-go-packages
   - oeis2
+  - OGDF
   - OGL
   - ogma-language-c
   - ogma-language-cocospec
@@ -3699,6 +3706,7 @@ broken-packages:
   - open-adt
   - OpenAFP
   - openai-hs
+  - openapi3
   - openapi3-code-generator
   - openapi-petstore
   - openapi-typed
@@ -3875,6 +3883,7 @@ broken-packages:
   - patrol
   - patronscraper
   - pattern-trie
+  - paynow-zw
   - paypal-adaptive-hoops
   - paypal-api
   - paypal-rest-client
@@ -4052,6 +4061,7 @@ broken-packages:
   - polysemy-path
   - polysemy-readline
   - polysemy-req
+  - polysemy-resume
   - polysemy-socket
   - polysemy-video
   - polysemy-vinyl
@@ -4072,7 +4082,6 @@ broken-packages:
   - posit
   - positron
   - posix-acl
-  - posix-api
   - posix-realtime
   - posix-waitpid
   - postcodes
@@ -4264,6 +4273,7 @@ broken-packages:
   - QuickAnnotate
   - quickbooks
   - quickcheck-arbitrary-template
+  - quickcheck-monoid-subclasses
   - quickcheck-property-comb
   - quickcheck-property-monad
   - quickcheck-rematch
@@ -4313,10 +4323,12 @@ broken-packages:
   - rank-product
   - rapid-term
   - Rasenschach
+  - rating-chgk-info
   - rational-list
   - rattle
   - rattletrap
   - raven-haskell-scotty
+  - raylib-imgui
   - raz
   - rbst
   - rclient
@@ -4350,6 +4362,7 @@ broken-packages:
   - record-wrangler
   - recursors
   - red-black-record
+  - redis-glob
   - redis-hs
   - redis-simple
   - Redmine
@@ -4484,6 +4497,7 @@ broken-packages:
   - rivers
   - rivet-migration
   - rivet-simple-deploy
+  - RJson
   - Rlang-QQ
   - rlglue
   - RLP
@@ -4888,10 +4902,13 @@ broken-packages:
   - SNet
   - snipcheck
   - snorkels
+  - snowchecked
   - snowtify
   - socket-activation
   - socketed
   - socketio
+  - sockets
+  - sockets-and-pipes
   - socket-sctp
   - socket-unix
   - sodium
@@ -5002,6 +5019,7 @@ broken-packages:
   - stm-firehose
   - stm-incremental
   - stm-promise
+  - stm-queue
   - stm-stats
   - stochastic
   - Stomp
@@ -5419,7 +5437,6 @@ broken-packages:
   - trivia
   - tropical
   - tropical-geometry
-  - true-name
   - tsession
   - tslib
   - tsparse
@@ -5540,6 +5557,7 @@ broken-packages:
   - unix-recursive
   - unlift
   - unlifted-list
+  - unliftio-messagebox
   - unlift-stm
   - unm-hip
   - unordered-containers-rematch
@@ -5806,6 +5824,7 @@ broken-packages:
   - X11-rm
   - X11-xdamage
   - X11-xfixes
+  - xcffib
   - xchat-plugin
   - xcp
   - x-dsp

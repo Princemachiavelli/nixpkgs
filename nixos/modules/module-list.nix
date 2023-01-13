@@ -20,9 +20,10 @@
   ./config/nsswitch.nix
   ./config/power-management.nix
   ./config/pulseaudio.nix
-  ./config/qt5.nix
+  ./config/qt.nix
   ./config/resolvconf.nix
   ./config/shells-environment.nix
+  ./config/stevenblack.nix
   ./config/swap.nix
   ./config/sysctl.nix
   ./config/system-environment.nix
@@ -179,6 +180,7 @@
   ./programs/haguichi.nix
   ./programs/hamster.nix
   ./programs/htop.nix
+  ./programs/iay.nix
   ./programs/iftop.nix
   ./programs/i3lock.nix
   ./programs/iotop.nix
@@ -1013,6 +1015,7 @@
   ./services/networking/wasabibackend.nix
   ./services/networking/websockify.nix
   ./services/networking/wg-netmanager.nix
+  ./services/networking/webhook.nix
   ./services/networking/wg-quick.nix
   ./services/networking/wireguard.nix
   ./services/networking/wpa_supplicant.nix
@@ -1139,6 +1142,7 @@
   ./services/web-apps/isso.nix
   ./services/web-apps/jirafeau.nix
   ./services/web-apps/jitsi-meet.nix
+  ./services/web-apps/kasmweb/default.nix
   ./services/web-apps/keycloak.nix
   ./services/web-apps/komga.nix
   ./services/web-apps/lemmy.nix

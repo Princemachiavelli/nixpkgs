@@ -73,6 +73,7 @@ let
 
   # older compilers (for example bootstrap's GCC 5) fail with -march=too-modern-cpu
   isGccArchSupported = arch:
+    if targetPlatform.isPower then false else # powerpc does not allow -march=
     if isGNU then
       { # Intel
         skylake        = versionAtLeast ccVersion "6.0";
@@ -236,10 +237,15 @@ stdenv.mkDerivation {
       fi
     ''
 
+    # No need to wrap gnat, gnatkr, gnatname or gnatprep; we can just symlink them in
     + optionalString cc.langAda or false ''
-      wrap ${targetPrefix}gnatmake ${./gnat-wrapper.sh} $ccPath/${targetPrefix}gnatmake
-      wrap ${targetPrefix}gnatbind ${./gnat-wrapper.sh} $ccPath/${targetPrefix}gnatbind
-      wrap ${targetPrefix}gnatlink ${./gnat-wrapper.sh} $ccPath/${targetPrefix}gnatlink
+      for cmd in gnatbind gnatchop gnatclean gnatlink gnatls gnatmake; do
+        wrap ${targetPrefix}$cmd ${./gnat-wrapper.sh} $ccPath/${targetPrefix}$cmd
+      done
+
+      for cmd in gnat gnatkr gnatname gnatprep; do
+        ln -s $ccPath/${targetPrefix}$cmd $out/bin/${targetPrefix}$cmd
+      done
 
       # this symlink points to the unwrapped gnat's output "out". It is used by
       # our custom gprconfig compiler description to find GNAT's ada runtime. See
@@ -441,8 +447,9 @@ stdenv.mkDerivation {
       echo "-march=${targetPlatform.gcc.arch}" >> $out/nix-support/cc-cflags-before
     ''
 
-    # -mcpu is not very useful. You should use mtune and march
-    # instead. It’s provided here for backwards compatibility.
+    # -mcpu is not very useful, except on PowerPC where it is used
+    # instead of march. On all other platforms you should use mtune
+    # and march instead.
     # TODO: aarch64-darwin has mcpu incompatible with gcc
     + optionalString ((targetPlatform ? gcc.cpu) && (isClang || !(stdenv.isDarwin && stdenv.isAarch64))) ''
       echo "-mcpu=${targetPlatform.gcc.cpu}" >> $out/nix-support/cc-cflags-before
@@ -517,6 +524,10 @@ stdenv.mkDerivation {
       substituteAll ${./add-flags.sh} $out/nix-support/add-flags.sh
       substituteAll ${./add-hardening.sh} $out/nix-support/add-hardening.sh
       substituteAll ${../wrapper-common/utils.bash} $out/nix-support/utils.bash
+    ''
+
+    + optionalString cc.langAda or false ''
+      substituteAll ${./add-gnat-extra-flags.sh} $out/nix-support/add-gnat-extra-flags.sh
     ''
 
     ##

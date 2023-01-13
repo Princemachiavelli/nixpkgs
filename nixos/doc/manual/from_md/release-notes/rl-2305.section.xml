@@ -39,6 +39,13 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://github.com/adnanh/webhook">webhook</link>,
+          a lightweight webhook server. Available as
+          <link linkend="opt-services.webhook.enable">services.webhook</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://github.com/alexivkin/CUPS-PDF-to-PDF">cups-pdf-to-pdf</link>,
           a pdf-generating cups backend based on
           <link xlink:href="https://www.cups-pdf.de/">cups-pdf</link>.
@@ -51,6 +58,14 @@
           <link xlink:href="https://github.com/junegunn/fzf">fzf</link>,
           a command line fuzzyfinder. Available as
           <link linkend="opt-programs.fzf.fuzzyCompletion">programs.fzf</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://github.com/StevenBlack/hosts">stevenblack-blocklist</link>,
+          A unified hosts file with base extensions for blocking
+          unwanted websites. Available as
+          <link xlink:href="options.html#opt-networking.stevenblack.enable">networking.stevenblack</link>.
         </para>
       </listitem>
       <listitem>
@@ -106,6 +121,23 @@
           inhibiting system sleep while backups are running, defaulting
           to off (not inhibiting sleep), available as
           <link linkend="opt-services.borgbackup.jobs._name_.inhibitsSleep"><literal>services.borgbackup.jobs.&lt;name&gt;.inhibitsSleep</literal></link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>podman</literal> now uses the
+          <literal>netavark</literal> network stack. Users will need to
+          delete all of their local containers, images, volumes, etc, by
+          running <literal>podman system reset --force</literal> once
+          before upgrading their systems.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>git-bug</literal> has been updated to at least
+          version 0.8.0, which includes backwards incompatible changes.
+          The <literal>git-bug-migration</literal> package can be used
+          to upgrade existing repositories.
         </para>
       </listitem>
       <listitem>
@@ -293,6 +325,20 @@
       </listitem>
       <listitem>
         <para>
+          The <literal>dokuwiki</literal> service now takes
+          configuration via the
+          <literal>services.dokuwiki.sites.&lt;name&gt;.settings</literal>
+          attribute set, <literal>extraConfig</literal> is deprecated
+          and will be removed. The
+          <literal>{aclUse,superUser,disableActions}</literal>
+          attributes have been renamed, <literal>pluginsConfig</literal>
+          now also accepts an attribute set of booleans, passing plain
+          PHP is deprecated. Same applies to <literal>acl</literal>
+          which now also accepts structured settings.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           To reduce closure size in
           <literal>nixos/modules/profiles/minimal.nix</literal> profile
           disabled installation documentations and manuals. Also
@@ -330,6 +376,13 @@
         </itemizedlist>
         <para>
           And backup your data.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>services.chronyd</literal> is now started with
+          additional systemd sandbox/hardening options for better
+          security.
         </para>
       </listitem>
       <listitem>
@@ -470,6 +523,13 @@
           <link xlink:href="https://xastir.org/index.php/Main_Page">Xastir</link>
           can now access AX.25 interfaces via the
           <literal>libax25</literal> package.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>nixos-version</literal> now accepts
+          <literal>--configuration-revision</literal> to display more
+          information about the current generation revision
         </para>
       </listitem>
     </itemizedlist>

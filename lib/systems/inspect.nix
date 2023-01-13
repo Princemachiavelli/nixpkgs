@@ -48,6 +48,7 @@ rec {
 
     is32bit        = { cpu = { bits = 32; }; };
     is64bit        = { cpu = { bits = 64; }; };
+    isILP32        = map (a: { abi = { abi = a; }; }) [ "n32" "ilp32" "x32" ];
     isBigEndian    = { cpu = { significantByte = significantBytes.bigEndian; }; };
     isLittleEndian = { cpu = { significantByte = significantBytes.littleEndian; }; };
 
@@ -77,7 +78,7 @@ rec {
     isUClibc       = with abis; map (a: { abi = a; }) [ uclibc uclibceabi uclibceabihf ];
 
     isEfi          = map (family: { cpu.family = family; })
-                       [ "x86" "arm" "aarch64" ];
+                       [ "x86" "arm" "aarch64" "riscv" ];
   };
 
   matchAnyAttrs = patterns:

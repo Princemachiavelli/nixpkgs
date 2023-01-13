@@ -78,6 +78,7 @@ in {
   allTerminfo = handleTest ./all-terminfo.nix {};
   alps = handleTest ./alps.nix {};
   amazon-init-shell = handleTest ./amazon-init-shell.nix {};
+  apcupsd = handleTest ./apcupsd.nix {};
   apfs = handleTest ./apfs.nix {};
   apparmor = handleTest ./apparmor.nix {};
   atd = handleTest ./atd.nix {};
@@ -224,7 +225,8 @@ in {
   fontconfig-default-fonts = handleTest ./fontconfig-default-fonts.nix {};
   freenet = handleTest ./freenet.nix {};
   freeswitch = handleTest ./freeswitch.nix {};
-  freshrss = handleTest ./freshrss.nix {};
+  freshrss-sqlite = handleTest ./freshrss-sqlite.nix {};
+  freshrss-pgsql = handleTest ./freshrss-pgsql.nix {};
   frr = handleTest ./frr.nix {};
   fsck = handleTest ./fsck.nix {};
   ft2-clone = handleTest ./ft2-clone.nix {};
@@ -375,6 +377,7 @@ in {
   man = handleTest ./man.nix {};
   mariadb-galera = handleTest ./mysql/mariadb-galera.nix {};
   mastodon = discoverTests (import ./web-apps/mastodon { inherit handleTestOn; });
+  mate = handleTest ./mate.nix {};
   matomo = handleTest ./matomo.nix {};
   matrix-appservice-irc = handleTest ./matrix/appservice-irc.nix {};
   matrix-conduit = handleTest ./matrix/conduit.nix {};
@@ -527,7 +530,6 @@ in {
   plotinus = handleTest ./plotinus.nix {};
   podgrab = handleTest ./podgrab.nix {};
   podman = handleTestOn ["aarch64-linux" "x86_64-linux"] ./podman/default.nix {};
-  podman-dnsname = handleTestOn ["aarch64-linux" "x86_64-linux"] ./podman/dnsname.nix {};
   podman-tls-ghostunnel = handleTestOn ["aarch64-linux" "x86_64-linux"] ./podman/tls-ghostunnel.nix {};
   polaris = handleTest ./polaris.nix {};
   pomerium = handleTestOn ["x86_64-linux"] ./pomerium.nix {};
@@ -556,6 +558,7 @@ in {
   public-inbox = handleTest ./public-inbox.nix {};
   pulseaudio = discoverTests (import ./pulseaudio.nix);
   qboot = handleTestOn ["x86_64-linux" "i686-linux"] ./qboot.nix {};
+  qemu-vm-restrictnetwork = handleTest ./qemu-vm-restrictnetwork.nix {};
   quorum = handleTest ./quorum.nix {};
   quake3 = handleTest ./quake3.nix {};
   rabbitmq = handleTest ./rabbitmq.nix {};
@@ -711,6 +714,7 @@ in {
   vsftpd = handleTest ./vsftpd.nix {};
   warzone2100 = handleTest ./warzone2100.nix {};
   wasabibackend = handleTest ./wasabibackend.nix {};
+  webhook = runTest ./webhook.nix;
   wiki-js = handleTest ./wiki-js.nix {};
   wine = handleTest ./wine.nix {};
   wireguard = handleTest ./wireguard {};

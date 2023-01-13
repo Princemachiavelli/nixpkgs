@@ -17,19 +17,19 @@
 
 stdenv.mkDerivation rec {
   pname = "pods";
-  version = "1.0.0-rc.3";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "marhkb";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-4dRwrB2M0GooRq3Hi2nmpbQm9RaLqrkZkEDTQpEd7bo=";
+    sha256 = "sha256-Kjonyd0xL0QLjPS+U3xDC6AhOOxQmVAZ3STLXaa8eXc=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    sha256 = "sha256-wGO2qp8jKHEevQ5vMDxqMzvRr1QazclhZ98M3B29PqQ=";
+    sha256 = "sha256-K5oOpo3xJiNg7F549JLGs83658MYcoGfuIcNoF88Njc=";
   };
 
   nativeBuildInputs = [

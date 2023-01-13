@@ -101,14 +101,14 @@ def _perform_ocr_on_screenshot(
 
     tess_args = f"-c debug_file=/dev/null --psm 11"
 
-    cmd = f"convert {magick_args} {screenshot_path} tiff:{screenshot_path}.tiff"
+    cmd = f"convert {magick_args} '{screenshot_path}' 'tiff:{screenshot_path}.tiff'"
     ret = subprocess.run(cmd, shell=True, capture_output=True)
     if ret.returncode != 0:
         raise Exception(f"TIFF conversion failed with exit code {ret.returncode}")
 
     model_results = []
     for model_id in model_ids:
-        cmd = f"tesseract {screenshot_path}.tiff - {tess_args} --oem {model_id}"
+        cmd = f"tesseract '{screenshot_path}.tiff' - {tess_args} --oem '{model_id}'"
         ret = subprocess.run(cmd, shell=True, capture_output=True)
         if ret.returncode != 0:
             raise Exception(f"OCR failed with exit code {ret.returncode}")
@@ -491,14 +491,14 @@ class Machine:
 
     def require_unit_state(self, unit: str, require_state: str = "active") -> None:
         with self.nested(
-            f"checking if unit ‘{unit}’ has reached state '{require_state}'"
+            f"checking if unit '{unit}' has reached state '{require_state}'"
         ):
             info = self.get_unit_info(unit)
             state = info["ActiveState"]
             if state != require_state:
                 raise Exception(
-                    f"Expected unit ‘{unit}’ to to be in state "
-                    f"'{require_state}' but it is in state ‘{state}’"
+                    f"Expected unit '{unit}' to to be in state "
+                    f"'{require_state}' but it is in state '{state}'"
                 )
 
     def _next_newline_closed_block_from_shell(self) -> str:
@@ -676,7 +676,7 @@ class Machine:
             retry(tty_matches)
 
     def send_chars(self, chars: str, delay: Optional[float] = 0.01) -> None:
-        with self.nested(f"sending keys ‘{chars}‘"):
+        with self.nested(f"sending keys '{chars}'"):
             for char in chars:
                 self.send_key(char, delay)
 
@@ -687,7 +687,7 @@ class Machine:
             status, _ = self.execute(f"test -e {filename}")
             return status == 0
 
-        with self.nested(f"waiting for file ‘{filename}‘"):
+        with self.nested(f"waiting for file '{filename}'"):
             retry(check_file)
 
     def wait_for_open_port(self, port: int, addr: str = "localhost") -> None:
@@ -744,7 +744,7 @@ class Machine:
             {"image": os.path.basename(filename)},
         ):
             self.send_monitor_command(f"screendump {tmp}")
-            ret = subprocess.run(f"pnmtopng {tmp} > {filename}", shell=True)
+            ret = subprocess.run(f"pnmtopng '{tmp}' > '{filename}'", shell=True)
             os.unlink(tmp)
             if ret.returncode != 0:
                 raise Exception("Cannot convert screenshot")
