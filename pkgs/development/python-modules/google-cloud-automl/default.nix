@@ -16,14 +16,14 @@
 
 buildPythonPackage rec {
   pname = "google-cloud-automl";
-  version = "2.8.3";
+  version = "2.11.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-aMkYgmx4TDGSW2/0KB7FTNUHUxtTaVpmeDiIWq7Z5lc=";
+    hash = "sha256-fc/87JW9FExvZPk+pHLuntLHfdj0kRi2e5ohRq5Ujpg=";
   };
 
   propagatedBuildInputs = [
@@ -44,7 +44,7 @@ buildPythonPackage rec {
     ];
   };
 
-  checkInputs = [
+  nativeCheckInputs = [
     google-cloud-storage
     google-cloud-testutils
     mock

@@ -14,14 +14,14 @@
 
 buildPythonPackage rec {
   pname = "google-cloud-bigquery-datatransfer";
-  version = "3.10.0";
+  version = "3.11.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-R6CIL1CA3UR81kUeIlFGJaxDGO33GBKOzT4Qo2LWlQk=";
+    hash = "sha256-AXBFNLF39+H/KLrWQ/rXQAAMC6hMsGXQ5XFTDs4Y3EY=";
   };
 
   propagatedBuildInputs = [
@@ -32,7 +32,7 @@ buildPythonPackage rec {
     pytz
   ] ++ google-api-core.optional-dependencies.grpc;
 
-  checkInputs = [
+  nativeCheckInputs = [
     mock
     pytest-asyncio
     pytestCheckHook

@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "oh-my-posh";
-  version = "13.0.0";
+  version = "14.9.1";
 
   src = fetchFromGitHub {
     owner = "jandedobbeleer";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-xsB7olfsrcgjxqNPOGiV9umtXoTtaM5E+/LTQEVLzZM=";
+    hash = "sha256-oWif17MawHKiFRts9wfLA7XcSLMuogaPLziYzgKihas=";
   };
 
-  vendorHash = "sha256-WiH4qu8DODEhAkxUm6VDcBwFyQO7kNjaiaWPDHCHj9E=";
+  vendorHash = "sha256-JZ5UiL2vGsXy/xmz+NcAKYDmp5hq7bx54/OdUyQHUp0=";
 
   sourceRoot = "source/src";
 
@@ -34,6 +34,11 @@ buildGoModule rec {
     "osusergo"
     "static_build"
   ];
+
+  postPatch = ''
+    # this test requires internet access
+    rm engine/migrate_glyphs_test.go
+  '';
 
   postInstall = ''
     mv $out/bin/{src,oh-my-posh}

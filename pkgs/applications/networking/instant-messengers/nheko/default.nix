@@ -1,6 +1,5 @@
 { lib
 , stdenv
-, mkDerivation
 , fetchFromGitHub
 , cmake
 , asciidoc
@@ -26,20 +25,21 @@
 , qttools
 , re2
 , spdlog
+, wrapQtAppsHook
 , voipSupport ? true
 , gst_all_1
 , libnice
 }:
 
-mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "nheko";
-  version = "0.11.0";
+  version = "0.11.3";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
     rev = "v${version}";
-    hash = "sha256-4Xe3eRnDkgyYB+hUP8TBWTt+m29HVtgcqVEQUUsIpCY=";
+    hash = "sha256-2daXxTbpSUlig47y901JOkWRxbZGH4qrvNMepJbvS3o=";
   };
 
   nativeBuildInputs = [
@@ -47,6 +47,7 @@ mkDerivation rec {
     cmake
     lmdbxx
     pkg-config
+    wrapQtAppsHook
   ];
 
   buildInputs = [
@@ -81,6 +82,9 @@ mkDerivation rec {
   cmakeFlags = [
     "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389
   ];
+
+  # https://github.com/NixOS/nixpkgs/issues/201254
+  NIX_LDFLAGS = lib.optionalString (stdenv.isLinux && stdenv.isAarch64 && stdenv.cc.isGNU) "-lgcc";
 
   preFixup = lib.optionalString voipSupport ''
     # add gstreamer plugins path to the wrapper
