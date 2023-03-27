@@ -1,13 +1,11 @@
 { lib
 , stdenv
 , rustPlatform
-, fetchCrate
+, fetchzip
 , openssl
 , pkg-config
-, makeWrapper
 , installShellFiles
 , Security
-, libiconv
 
   # rbw-fzf
 , withFzf ? false
@@ -26,15 +24,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rbw";
-  version = "1.5.0";
+  version = "1.7.0";
 
-  src = fetchCrate {
-    inherit version;
-    crateName = pname;
-    sha256 = "sha256-3kSBE2D+kC9CTbWlCKPro9fLu2tnd6LFTV4EshHMm3Y=";
+  src = fetchzip {
+    url = "https://git.tozt.net/rbw/snapshot/rbw-${version}.tar.gz";
+    sha256 = "sha256-8qNC6eB6RLrHAf2IFMLl6IHA0Akbn68eQF7P+Vo0nxU=";
   };
 
-  cargoSha256 = "sha256-DL3qaUZxWnzsJOxi8+GtXBbZC7vfsridJWqhOTdcsgM=";
+  cargoHash = "sha256-2O3o4VAKDrkhbPeFWNFGLr8oIM1oaFlFkbTYv8tGMgM=";
 
   nativeBuildInputs = [
     installShellFiles

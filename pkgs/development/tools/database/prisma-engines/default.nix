@@ -14,19 +14,29 @@
 # function correctly.
 rustPlatform.buildRustPackage rec {
   pname = "prisma-engines";
-  version = "4.10.1";
+  version = "4.11.0";
 
   src = fetchFromGitHub {
     owner = "prisma";
     repo = "prisma-engines";
     rev = version;
-    sha256 = "sha256-TFLwpKh+FsstcpvBfTw7CNcQOGGSNI9qf8WJ6v75uL8=";
+    sha256 = "sha256-VAVrXSz75rPdBOz9Jg75rpA3VBvw4WO+hFvk+A4f6Mc=";
   };
 
   # Use system openssl.
   OPENSSL_NO_VENDOR = 1;
 
-  cargoSha256 = "sha256-EPym9MLwTMGBbJkVMKD/NEc6Vfm7nI4FaDkqy/0B14Q=";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "barrel-0.6.6-alpha.0" = "sha256-USh0lQ1z+3Spgc69bRFySUzhuY79qprLlEExTmYWFN8=";
+      "graphql-parser-0.3.0" = "sha256-0ZAsj2mW6fCLhwTETucjbu4rPNzfbNiHu2wVTBlTNe4=";
+      "mobc-0.7.3" = "sha256-Ts2VVAuZakS+Sy/rEUrCe7RJX5MWs/TTO60c7mH+5sU=";
+      "mysql_async-0.31.3" = "sha256-hvuZTJ8W6L2s2gYAGJXBezkeAHTu06zIvJGQjoYX+7Q=";
+      "postgres-native-tls-0.5.0" = "sha256-6aDlwv9+Tt9ncOPRnhKNAgafcPhqM1V31Ix+fplwdUc=";
+      "quaint-0.2.0-alpha.13" = "sha256-UI1B/BylEQQko48D+sQzUhD7qIK2Z84115bu7NkDSFw=";
+    };
+  };
 
   nativeBuildInputs = [ pkg-config git ];
 

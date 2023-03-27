@@ -7,7 +7,7 @@ Check for any minor version changes.
 
 */
 
-{ newScope
+{ makeScopeWithSplicing, generateSplicesForMkScope
 , lib, stdenv, fetchurl, fetchgit, fetchpatch, fetchFromGitHub, makeSetupHook, makeWrapper
 , bison, cups ? null, harfbuzz, libGL, perl, python3
 , gstreamer, gst-plugins-base, gtk3, dconf
@@ -18,6 +18,7 @@ Check for any minor version changes.
 , developerBuild ? false
 , decryptSslTraffic ? false
 , debug ? false
+, config
 }:
 
 let
@@ -223,6 +224,9 @@ let
         propagatedBuildInputs = [ self.qtbase.dev buildPackages.makeWrapper ]
           ++ lib.optional stdenv.isLinux self.qtwayland.dev;
       } ../hooks/wrap-qt-apps-hook.sh;
+    } // lib.optionalAttrs config.allowAliases {
+      # remove before 23.11
+      overrideScope' = lib.warn "qt5 now uses makeScopeWithSplicing which does not have \"overrideScope'\", use \"overrideScope\"." self.overrideScope;
     };
 
-in lib.makeScope newScope addPackages
+in makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: {}) (_: {}) addPackages

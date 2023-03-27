@@ -15,19 +15,25 @@
 , enableOpenvpn ? true
 , openvpn-mullvad
 , shadowsocks-rust
+, installShellFiles
 }:
 rustPlatform.buildRustPackage rec {
   pname = "mullvad";
-  version = "2023.1";
+  version = "2023.2";
 
   src = fetchFromGitHub {
     owner = "mullvad";
     repo = "mullvadvpn-app";
     rev = version;
-    hash = "sha256-BoduliiDOpzEPYHAjr636e7DbrhFnC/v9au6Mp9T/Qs=";
+    hash = "sha256-UozgUsew6MRplahTW/y688R2VetO50UGQevmVo8/QNs=";
   };
 
-  cargoHash = "sha256-5kK2IA0Z1dQbHlnGXNZHD+BycurshfpqrwcIEveWKT0=";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "udp-over-tcp-0.2.0" = "sha256-h44xrmRAlfy1Br0PAtZAzOwSMptaUatjXysA/l2Kff8=";
+    };
+  };
 
   patches = [
     # https://github.com/mullvad/mullvadvpn-app/pull/4389
@@ -44,6 +50,7 @@ rustPlatform.buildRustPackage rec {
     protobuf
     makeWrapper
     git
+    installShellFiles
   ];
 
   buildInputs = [
@@ -57,6 +64,17 @@ rustPlatform.buildRustPackage rec {
     dest=build/lib/${stdenv.targetPlatform.config}
     mkdir -p $dest
     ln -s ${libwg}/lib/libwg.a $dest
+  '';
+
+  postInstall = ''
+    compdir=$(mktemp -d)
+    for shell in bash zsh fish; do
+      $out/bin/mullvad shell-completions $shell $compdir
+    done
+    installShellCompletion --cmd mullvad \
+      --bash $compdir/mullvad.bash \
+      --zsh $compdir/_mullvad \
+      --fish $compdir/mullvad.fish
   '';
 
   postFixup =

@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2023.3.0";
+  version = "2023.3.6";
   components = {
     "3_day_blinds" = ps: with ps; [
     ];
@@ -241,8 +241,8 @@
       pyatome
     ];
     "august" = ps: with ps; [
-      yalexs
       yalexs-ble
+      yalexs
     ];
     "august_ble" = ps: with ps; [
     ];
@@ -325,7 +325,7 @@
       blinkpy
     ];
     "blinksticklight" = ps: with ps; [
-      BlinkStick
+      blinkstick
     ];
     "bliss_automation" = ps: with ps; [
     ];
@@ -513,7 +513,7 @@
       plexapi
       plexauth
       plexwebsocket
-      PyChromecast
+      pychromecast
       sqlalchemy
       zeroconf
     ];
@@ -843,7 +843,8 @@
       aioeafm
     ];
     "easyenergy" = ps: with ps; [
-    ]; # missing inputs: easyenergy
+      easyenergy
+    ];
     "ebox" = ps: with ps; [
     ]; # missing inputs: pyebox
     "ebusd" = ps: with ps; [
@@ -934,7 +935,8 @@
       sqlalchemy
     ];
     "energyzero" = ps: with ps; [
-    ]; # missing inputs: energyzero
+      energyzero
+    ];
     "enigma2" = ps: with ps; [
       openwebifpy
     ];
@@ -1017,13 +1019,14 @@
       bluetooth-data-tools
       dbus-fast
       esphome-dashboard-api
+      eufylife-ble-client
       fnvhash
       ifaddr
       pyserial
       pyudev
       sqlalchemy
       zeroconf
-    ]; # missing inputs: eufylife_ble_client
+    ];
     "everlights" = ps: with ps; [
       pyeverlights
     ];
@@ -2378,7 +2381,7 @@
       mutesync
     ];
     "mvglive" = ps: with ps; [
-      PyMVGLive
+      pymvglive
     ];
     "my" = ps: with ps; [
       aiohttp-cors
@@ -4462,6 +4465,7 @@
     "dunehd"
     "dynalite"
     "eafm"
+    "easyenergy"
     "ecobee"
     "econet"
     "ecowitt"
@@ -4475,12 +4479,14 @@
     "emulated_kasa"
     "emulated_roku"
     "energy"
+    "energyzero"
     "enocean"
     "enphase_envoy"
     "environment_canada"
     "epson"
     "escea"
     "esphome"
+    "eufylife_ble"
     "everlights"
     "evil_genius_labs"
     "ezviz"
