@@ -402,6 +402,8 @@ with pkgs;
 
   cewl = callPackage ../tools/security/cewl { };
 
+  chatgpt-cli = callPackage ../tools/misc/chatgpt-cli { };
+
   checkov = callPackage ../development/tools/analysis/checkov {
     python3 = python311;
   };
@@ -15581,8 +15583,9 @@ with pkgs;
 
   muonlang = callPackage ../development/compilers/muonlang { };
 
-  inherit (callPackages ../development/compilers/nim { })
-    nim-unwrapped nimble-unwrapped nim;
+  inherit (callPackages ../development/compilers/nim
+                        { inherit (darwin) Security;  }
+          ) nim-unwrapped nimble-unwrapped nim;
   nimPackages = recurseIntoAttrs nim.pkgs;
 
   nrpl = callPackage ../development/tools/nrpl { };
@@ -33622,6 +33625,7 @@ with pkgs;
   syncterm = callPackage ../applications/terminal-emulators/syncterm { };
 
   inherit (callPackages ../applications/networking/syncthing {
+    inherit (darwin) autoSignDarwinBinariesHook;
     buildGoModule = buildGo119Module; # go 1.20 build failure
    })
     syncthing
