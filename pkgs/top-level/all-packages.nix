@@ -6378,6 +6378,8 @@ with pkgs;
 
   cloc = callPackage ../tools/misc/cloc { };
 
+  clolcat = callPackage ../tools/misc/clolcat { };
+
   cloog = callPackage ../development/libraries/cloog {
     isl = isl_0_14;
   };
@@ -30732,6 +30734,8 @@ with pkgs;
   slack-cli = callPackage ../tools/networking/slack-cli { };
 
   slack-term = callPackage ../applications/networking/instant-messengers/slack-term { };
+
+  sleep-on-lan = callPackage ../tools/networking/sleep-on-lan { };
 
   slweb = callPackage ../applications/misc/slweb { };
 
