@@ -9450,6 +9450,8 @@ with pkgs;
 
   l3afpad = callPackage ../applications/editors/l3afpad { };
 
+  leanify = callPackage ../tools/misc/leanify { };
+
   leatherman = callPackage ../development/libraries/leatherman { };
 
   ledit = callPackage ../tools/misc/ledit {
@@ -17286,6 +17288,8 @@ with pkgs;
   rnix-lsp = callPackage ../development/tools/language-servers/rnix-lsp { };
 
   svls = callPackage ../development/tools/language-servers/svls { };
+
+  typst-lsp = callPackage ../development/tools/language-servers/typst-lsp { };
 
   vala-language-server = callPackage ../development/tools/language-servers/vala-language-server { };
 
