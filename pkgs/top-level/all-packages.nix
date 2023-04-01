@@ -316,6 +316,8 @@ with pkgs;
 
   banana-accounting = callPackage ../applications/office/banana-accounting { };
 
+  beebeep = libsForQt5.callPackage ../applications/office/beebeep {};
+
   bakelite = callPackage ../tools/backup/bakelite { };
 
   benthos = callPackage ../development/tools/benthos { };
@@ -1430,6 +1432,8 @@ with pkgs;
   arubaotp-seed-extractor = callPackage ../tools/security/arubaotp-seed-extractor { };
 
   audible-cli = callPackage ../tools/misc/audible-cli { };
+
+  audiobookshelf = callPackage ../servers/audiobookshelf { };
 
   auditwheel = callPackage ../tools/package-management/auditwheel { };
 
@@ -13815,6 +13819,8 @@ with pkgs;
   };
 
   clipnotify = callPackage ../tools/misc/clipnotify { };
+
+  clipboard-jh = callPackage ../tools/misc/clipboard-jh { };
 
   clipbuzz = callPackage ../tools/misc/clipbuzz { };
 
@@ -33959,6 +33965,8 @@ with pkgs;
 
   tortoisehg = callPackage ../applications/version-management/tortoisehg { };
 
+  tone = callPackage ../applications/audio/tone { };
+
   tonelib-gfx = callPackage ../applications/audio/tonelib-gfx { };
 
   tonelib-jam = callPackage ../applications/audio/tonelib-jam { };
@@ -39361,6 +39369,8 @@ with pkgs;
   };
 
   golden-cheetah = libsForQt5.callPackage ../applications/misc/golden-cheetah { };
+
+  golden-cheetah-bin = callPackage ../applications/misc/golden-cheetah-bin {};
 
   linkchecker = callPackage ../tools/networking/linkchecker { };
 
