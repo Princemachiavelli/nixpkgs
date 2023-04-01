@@ -2300,6 +2300,8 @@ with pkgs;
 
   simplenes = callPackage ../applications/emulators/simplenes { };
 
+  snekim = callPackage ../games/snekim { };
+
   snes9x = callPackage ../applications/emulators/snes9x { };
 
   snes9x-gtk = callPackage ../applications/emulators/snes9x {
@@ -32011,6 +32013,8 @@ with pkgs;
   rofi-top = callPackage ../applications/misc/rofi-top { };
 
   rofi-vpn = callPackage ../applications/networking/rofi-vpn { };
+
+  seamly2d = libsForQt5.callPackage ../applications/graphics/seamly2d { };
 
   ympd = callPackage ../applications/audio/ympd { };
 
