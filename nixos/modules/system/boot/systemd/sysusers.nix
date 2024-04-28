@@ -4,6 +4,8 @@ let
 
   cfg = config.systemd.sysusers;
   userCfg = config.users;
+  optsHashedPassword = opts: if (opts.hashedPassword != null) then opts.hashedPassword else opts.initialHashedPassword;
+  optsPassword = opts: if (opts.password != null) then opts.password else opts.initialPassword;
 
   sysusersConfig = pkgs.writeTextDir "00-nixos.conf" ''
     # Type Name ID GECOS Home directory Shell
@@ -34,12 +36,12 @@ let
     mkdir $out; cd $out
     ${lib.concatLines (
       (lib.mapAttrsToList
-        (username: opts: "echo -n '${opts.initialHashedPassword}' > 'passwd.hashed-password.${username}'")
-        (lib.filterAttrs (_username: opts: opts.initialHashedPassword != null) userCfg.users))
+        (username: opts: "echo -n '${optsHashedPassword opts}' > 'passwd.hashed-password.${username}'")
+        (lib.filterAttrs (_username: opts: (optsHashedPassword opts) != null) userCfg.users))
         ++
       (lib.mapAttrsToList
-        (username: opts: "echo -n '${opts.initialPassword}' > 'passwd.plaintext-password.${username}'")
-        (lib.filterAttrs (_username: opts: opts.initialPassword != null) userCfg.users))
+        (username: opts: "echo -n '${optsPassword opts}' > 'passwd.plaintext-password.${username}'")
+        (lib.filterAttrs (_username: opts: (optsPassword opts) != null) userCfg.users))
         ++
       (lib.mapAttrsToList
         (username: opts: "cat '${opts.hashedPasswordFile}' > 'passwd.hashed-password.${username}'")
@@ -125,12 +127,12 @@ in
               (username: opts: "passwd.hashed-password.${username}:${opts.hashedPasswordFile}")
               (lib.filterAttrs (_username: opts: opts.hashedPasswordFile != null) userCfg.users);
             SetCredential = (lib.mapAttrsToList
-              (username: opts: "passwd.hashed-password.${username}:${opts.initialHashedPassword}")
-              (lib.filterAttrs (_username: opts: opts.initialHashedPassword != null) userCfg.users))
+              (username: opts: "passwd.hashed-password.${username}:${optsHashedPassword opts}")
+              (lib.filterAttrs (_username: opts: (optsHashedPassword opts) != null) userCfg.users))
             ++
             (lib.mapAttrsToList
-              (username: opts: "passwd.plaintext-password.${username}:${opts.initialPassword}")
-              (lib.filterAttrs (_username: opts: opts.initialPassword != null) userCfg.users))
+              (username: opts: "passwd.plaintext-password.${username}:${optsPassword opts}")
+              (lib.filterAttrs (_username: opts: (optsPassword opts) != null) userCfg.users))
             ;
           };
         };
