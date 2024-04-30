@@ -107,6 +107,7 @@ with pkgs;
     packages, like using pkgs/top-level/release-attrpaths-superset.nix.
   '';
 
+  rust-setup-etc = writers.writeRustBin "rust-setup-etc" { strip = false; } (builtins.readFile ../../nixos/modules/system/etc/setup-etc.rs);
   tests = callPackages ../test { };
 
   defaultPkgConfigPackages =
