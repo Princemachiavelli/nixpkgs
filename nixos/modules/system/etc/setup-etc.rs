@@ -2,13 +2,15 @@ use std::env;
 use std::fs;
 use std::io;
 use std::path::Path;
+use std::os::unix::fs::PermissionsExt;
 use fs::read_dir;
+use fs::File;
 use std::collections::HashMap;
+use std::os::unix::fs::lchown;
 
-
-fn atomic_symlink(source: &str, target: &str) -> io::Result<()> {
-    let tmp = format!("{target}.tmp");
-    if Path::new(&tmp).exists() {
+fn atomic_symlink(source: &Path, target: &Path) -> io::Result<()> {
+    let tmp = target.join(".tmp");
+    if tmp.exists() {
         _ = fs::remove_file(tmp.clone());
     }
     match std::os::unix::fs::symlink(source, tmp.clone()) {
@@ -83,20 +85,20 @@ fn find(path: &Path, f: fn(&Path)) -> io::Result<()> {
 // name = $File::Find::name
 // %created hashmap
 // @copied array
-fn link(&etc: str, &name: str) {
+fn link(etc: &str, name: &str) {
     let mut created = HashMap::new();
     // or next: if name.length() <= etc.length() then return?
     let file_name = &name[..(etc.chars().count() + 1)];
 
-    if (file_name == "resolve.conf") {
+    if file_name == "resolve.conf" {
         match env::var("IN_NIXOS_ENTER") {
-            Ok(()) => { return; },
-            Err(()) => {}
+            Ok(s) => { return; },
+            Err(err) => {}
         }
     }
 
     let target = Path::new(&format!("/etc/{file_name}"));
-    fs::create_dir_all(target.parent()).unwrap();
+    fs::create_dir_all(target.parent().expect("Could not get target parent")).unwrap();
     created.insert(file_name, 1);
 
     let fileMeta = fs::metadata(name).unwrap();
@@ -105,27 +107,38 @@ fn link(&etc: str, &name: str) {
         if is_static(target) {
            // try (rmTree target) or warn
         } else {
-            eprintln!("{} directory contains user files. Symlinking may fail", target);
+            eprintln!("{} directory contains user files. Symlinking may fail", target.display());
         }
     }
-    if (-e "{file_name}.mode") {
-        let mode = fs::read_to_string(&format!("{name}.mode"))
-            .expect("Should have been able to read the file").trim_right();
-        if ($mode == "direct-symlink") {
-            atomic_symlink(&format!("/tmp/etc/static/{file_name}", $target).expect(format!("Could not create symlink {target}"));
+    let file_mode_path = Path::new(&(file_name.to_owned() + ".mode"));
+    if file_mode_path.exists() {
+        let mode = fs::read_to_string(&file_mode_path)
+            .expect("Should have been able to read the file").trim_end();
+        if (mode == "direct-symlink") {
+            atomic_symlink(Path::new("/tmp/etc/static/{file_name}"), target).expect("Could not create symlink {target}");
         } else {
-            let tmpTarget = &format!("{target}.tmp");
-            let uid = fs::read_to_string(&format!("{name}.uid"))
-                .expect("Should have been able to read the file").trim_right();
-            let gid = fs::read_to_string(&format!("{name}.gid"))
-                .expect("Should have been able to read the file").trim_right();
+            // let tmpTarget = &format!("{target}.tmp");
+            let tmpTarget = target.join(".tmp");
+            let uid = match fs::read_to_string(&format!("{name}.uid"))
+                .expect("Should have been able to read the file.").trim_end() {
+                    integer => { return uid; },
+                    user_name => { User::get_user(user_name); },
+                    "^+[0-9]+" => { },
+                };
+
+            let gid = match fs::read_to_string(&format!("{name}.gid"))
+                .expect("Should have been able to read the file.").trim_end() {
+                    integer => { return uid; },
+                    user_name => { User::get_user(user_name); },
+                    "^+[0-9]+" => { },
+                };
             fs::copy(&format!("/tmp/etc/static/{file_name}"), tmpTarget).expect("Could not copy file!");
             let file = File::open(tmpTarget).expect("Could not open tmp target!");
-            let mut perms = file.metadata()?.permissions();
+            let mut perms = file.metadata().expect("Could not get tmp file metadata").permissions();
             // TODO: handle octal and string format modes?
-            perms.set_mode($mod);
+            perms.set_mode(u32::from_str_radix(mode, 8).expect("Failed to parse mode string."));
             // Should set uid/gid on symlink or symlink destination?
-            fs::lchown($tmpTarget, Some($uid), Some($gid)).expect("Could set target.tmp uid/gid");
+            lchown(tmpTarget, Some(uid), Some(gid)).expect("Could set target.tmp UID/GID.");
             match fs::rename(tmpTarget, target) {
                 Ok(()) => {},
                 Err(e) => {
@@ -134,11 +147,14 @@ fn link(&etc: str, &name: str) {
                 }
             }
         }
-        copied.insert($file_name);
+        // Append to copied list (set?) copied.insert(file_name);
         //TODO: append to CLEAN list.
-    else if (-l $file_name) {
-        atomic_symlink(fomatln!("/tmp/etc/static/{file_name}"), target).expect(format!("Could not create symlink $target"));
+    else {
+        if Path::new(file_name).is_link() {
+            atomic_symlink(fomatln!("/tmp/etc/static/{file_name}"), target).expect(format!("Could not create symlink $target"));
+        }
     }
+}
 }
 
 fn main() {
@@ -152,9 +168,9 @@ fn main() {
     println!("is literal? {}", is_static(Path::new("/tmp/etc/static")));
     let _ = find(&Path::new("/tmp/etc"),  cleanup);
 
-    let old_copied = fs::read_to_string("/etc/.clean")
+    let _old_copied = fs::read_to_string("/etc/.clean")
       .expect("/etc.clean did not exist!");
-    let mut open_clean = File::create("/etc/.clean").unwrap();
+    let _open_clean = File::create("/etc/.clean").unwrap();
     // write sorted $copied to .clean
     // Create /etc/NIXOS tag?
 }
