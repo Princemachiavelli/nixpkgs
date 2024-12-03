@@ -358,6 +358,12 @@ let
         { object = pkgs.kmod-debian-aliases;
           symlink = "/etc/modprobe.d/debian.conf";
         }
+        {  object = config.environment.etc."hosts".source;
+           symlink = "/etc/hosts";
+        }
+        { object = config.environment.etc."protocols".source;
+          symlink = "/etc/protocols";
+        }
       ] ++ lib.optionals config.services.multipath.enable [
         { object = pkgs.runCommand "multipath.conf" {
               src = config.environment.etc."multipath.conf".text;

@@ -109,11 +109,8 @@ let
 
   initrdBinEnv = pkgs.buildEnv {
     name = "initrd-bin-env";
-    paths = map getBin cfg.initrdBin;
-    pathsToLink = [
-      "/bin"
-      "/sbin"
-    ];
+    paths = map getBin (cfg.initrdBin ++ config.system.fsPackages);
+    pathsToLink = ["/bin" "/sbin"];
 
     # Make sure sbin and bin have the same contents, and add extraBin
     postBuild = ''
@@ -505,8 +502,12 @@ in
           # For systemd-journald's _HOSTNAME field; needs to be set early, cannot be backfilled.
           "/etc/hostname".text = config.networking.hostName;
 
-        }
-        // optionalAttrs (config.environment.etc ? "modprobe.d/nixos.conf") {
+          # So hosts resolve in stage-1
+          "/etc/hosts".source = config.environment.etc."hosts".source;
+
+          # For mount.nfs to lookup protocols
+          "/etc/protocols".source = config.environment.etc.protocols.source;
+        } // optionalAttrs (config.environment.etc ? "modprobe.d/nixos.conf") {
           "/etc/modprobe.d/nixos.conf".source = config.environment.etc."modprobe.d/nixos.conf".source;
         };
 
@@ -540,6 +541,9 @@ in
 
           # required for script services, and some tools like xfs still want the sh symlink
           "${pkgs.bash}/bin"
+
+          # required for mount.nfs to lookup protocol definitions. THIS WORKS
+          "${pkgs.libtirpc}/etc/netconfig"
 
           # so NSS can look up usernames
           "${pkgs.glibc}/lib/libnss_files.so.2"
