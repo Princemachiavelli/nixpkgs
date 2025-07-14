@@ -114,4 +114,6 @@ in
     assert assertMsg (test.value == false) "test_string_context should not eval successfully.";
     builtins.toFile "test_string_context" (toString test.value);
 
+
+  # Test derivation without pname or name?
 }

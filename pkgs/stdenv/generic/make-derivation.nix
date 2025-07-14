@@ -763,16 +763,11 @@ let
 
       derivationArg =
         let
-          # Get attrSet containing key-value only if key exists, otherwise get empty attrSet.
-          optAttr = name: optionalAttrs (builtins.hasAttr name attrs) { ${name} = attrs.${name}; };
           # For convenience, include some useful attributes (if present) plus existing meta attrSet.
-          nonMetaAttributes = [
-            "name"
-            "pname"
-            "version"
-          ];
-          meta = foldl' (acc: x: acc // optAttr x) { } nonMetaAttributes // attrs.meta or { };
-          nixMetaJSON = builtins.toJSON (filterAttrs (n: _: (elem n preserveMetaFields)) meta);
+          nixMetaJSON = builtins.toJSON (filterAttrs (n: _: (elem n preserveMetaFields)) (attrs.meta or { }) // {
+            name = attrs.pname or attrs.name; # TODO: do i need "or null"?
+            version = attrs.version or null;
+          });
           nixMetaJSONContext = builtins.getContext nixMetaJSON;
         in
           assert assertMsg (nixMetaJSONContext == {})
