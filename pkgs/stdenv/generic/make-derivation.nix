@@ -716,15 +716,6 @@ let
       cmakeFlags ? [ ],
       mesonFlags ? [ ],
 
-      preserveMetaFields ? [
-        "name"
-        "pname"
-        "version"
-        "license"
-        "vendor"
-        "cpe"
-        "mainProgram"
-      ],
       meta ? { },
       passthru ? { },
       pos ? # position used in error messages and for meta.position
@@ -763,15 +754,25 @@ let
 
       derivationArg =
         let
+          preserveMetaFields = [
+            "identifiers" # Pending PR#409797
+            "license"
+            "mainProgram"
+            "vendor"
+          ];
           # For convenience, include some useful attributes (if present) plus existing meta attrSet.
-          nixMetaJSON = builtins.toJSON (filterAttrs (n: _: (elem n preserveMetaFields)) (attrs.meta or { }) // {
-            name = attrs.pname or attrs.name; # TODO: do i need "or null"?
-            version = attrs.version or null;
-          });
+          nixMetaJSON = builtins.toJSON (
+            filterAttrs (n: _: (elem n preserveMetaFields)) (attrs.meta or { })
+            // {
+              name = attrs.pname or attrs.name;
+              version = attrs.version or null;
+            }
+          );
           nixMetaJSONContext = builtins.getContext nixMetaJSON;
         in
-          assert assertMsg (nixMetaJSONContext == {})
-            "Context not allowed nixMetaJSON: ${builtins.toJSON nixMetaJSONContext}";
+        assert assertMsg (
+          nixMetaJSONContext == { }
+        ) "Context not allowed nixMetaJSON: ${builtins.toJSON nixMetaJSONContext}";
         makeDerivationArgument (
           removeAttrs attrs (
             [
@@ -782,10 +783,8 @@ let
             ++ optional (__structuredAttrs || envIsExportable) "env"
           )
           // optionalAttrs __structuredAttrs { env = checkedEnv; }
-          // optionalAttrs (preserveMetaFields != [ ]) {
-            inherit nixMetaJSON;
-          }
           // {
+            inherit nixMetaJSON;
             cmakeFlags = makeCMakeFlags attrs;
             mesonFlags = makeMesonFlags attrs;
           }
