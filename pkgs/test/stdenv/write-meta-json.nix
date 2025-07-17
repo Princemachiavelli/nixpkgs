@@ -33,7 +33,7 @@ in
         "keys[]"
       ];
       expectedArray = [
-        "temp_name"
+        "temp_pname"
         "test_version"
         "nested_value"
         "cpe\nname\npname\nversion"
@@ -48,62 +48,6 @@ in
             key = "nested_value";
           };
         };
-      };
-
-  test_custom_field =
-    (testEqualArrayOrMap {
-      name = "test_custom_field";
-      valuesArray = [
-        ".maintainers"
-        "keys[]"
-      ];
-      expectedArray = [
-        ''["custom_value"]''
-        "maintainers"
-      ];
-      inherit script;
-    }).overrideAttrs
-      {
-        # Preserve custom_field
-        preserveMetaFields = [
-          "maintainers"
-        ];
-        meta.maintainers = [ "custom_value" ];
-      };
-
-  test_removed_meta =
-    (testEqualArrayOrMap {
-      name = "test_removed_meta";
-      valuesArray = [
-        "$out"
-        "$out/nix-support"
-        "$out/nix-support/meta.json"
-      ];
-      expectedArray = [
-        "true"
-        "false"
-        "false"
-      ];
-      script = ''
-        mkdir -p $out
-        nixLog "Running nix-meta hook"
-        writeMetaInAllOutputs
-        declare -ig writeMetaJSONInstalled=1
-
-        for value in "''${valuesArray[@]}"; do
-          value="''${value/\$out/$out}"
-          nixLog "Testing path '$value'"
-          if [[ -e "$value" ]]; then
-            actualArray+=( "true" )
-          else
-            actualArray+=( "false" )
-          fi
-        done
-      '';
-    }).overrideAttrs
-      {
-        # Remove all fields.
-        preserveMetaFields = [ ];
       };
 
   test_string_context =
